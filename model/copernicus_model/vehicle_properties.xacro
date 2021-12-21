@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+
+Copyright (c) 2021, Botsync Pte. Ltd.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the Botsync Pte. Ltd. nor the 
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+
+<robot name="copernicus_robot" xmlns:xacro="https://ros.org/wiki/xacro">
+    <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+    </material>
+
+    <material name="white">
+       <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+
+    <xacro:property name="base_mass" value="5.674"/>
+
+    <xacro:property name="base_l" value="0.646"/>
+    <xacro:property name="base_w" value="0.456"/>
+    <xacro:property name="base_h" value="0.323"/>
+    <xacro:property name="base_ixx" value="3.28"/>
+    <xacro:property name="base_ixy" value="0.00"/>
+    <xacro:property name="base_ixz" value="0.00"/>
+    <xacro:property name="base_iyy" value="3.69"/>
+    <xacro:property name="base_iyz" value="0.00"/>
+    <xacro:property name="base_izz" value="2.26"/>
+
+    <xacro:property name="ground_clearance" value="0.11457"/>
+
+    <xacro:property name="wheel_width" value="0.120" />
+    <xacro:property name="wheel_radius" value="0.18" />
+    <xacro:property name="wheel_joint_x_abs" value="0.22030" />
+    <xacro:property name="wheel_joint_y_abs" value="0.29490" />
+    <xacro:property name="wheel_joint_z_abs" value="0.07300" />
+    <xacro:property name="wheel_ixx" value="0.739"/>
+    <xacro:property name="wheel_ixy" value="0.170"/>
+    <xacro:property name="wheel_ixz" value="0.236"/>
+    <xacro:property name="wheel_iyy" value="0.741"/>
+    <xacro:property name="wheel_iyz" value="0.299"/>
+    <xacro:property name="wheel_izz" value="0.460"/>
+
+    <xacro:property name="lms151_mount_l" value="0.156"/>
+    <xacro:property name="lms151_mount_h" value="0.094"/>
+    <xacro:property name="lms151_mount_w" value="0.1102"/>
+    <xacro:property name="lms151_mount_mass" value="0.229"/>
+    <xacro:property name="lms151_mount_ixx" value="0.002"/>
+    <xacro:property name="lms151_mount_ixy" value="0.000"/>
+    <xacro:property name="lms151_mount_ixz" value="0.000"/>
+    <xacro:property name="lms151_mount_iyy" value="0.005"/>
+    <xacro:property name="lms151_mount_iyz" value="0.000"/>
+    <xacro:property name="lms151_mount_izz" value="0.002"/>
+
+    <xacro:property name="lms151_mount_joint_x" value="0.0"/>
+    <xacro:property name="lms151_mount_joint_y" value="0.0"/>
+    <xacro:property name="lms151_mount_joint_z" value="0.4155"/>
+
+    <xacro:property name="lms151_joint_x" value="0.0"/>
+    <xacro:property name="lms151_joint_y" value="0.0"/>
+    <xacro:property name="lms151_joint_z" value="0.0"/>
+
+    <!-- base of lidar mopunt, x position in lidar_copernicus.urdf.xacro -->
+    <xacro:property name="lidar_joint_y" value="0.0"/>
+    <xacro:property name="lidar_joint_z" value="0.395"/>
+    
+    <xacro:property name="velodyne_mount_l" value="0.112"/>
+    <xacro:property name="velodyne_mount_h" value="0.039"/>
+    <xacro:property name="velodyne_mount_w" value="0.125"/>
+    <xacro:property name="velodyne_mount_mass" value="0.300"/>
+    <xacro:property name="velodyne_mount_ixx" value="0.002"/>
+    <xacro:property name="velodyne_mount_ixy" value="0.000"/>
+    <xacro:property name="velodyne_mount_ixz" value="0.000"/>
+    <xacro:property name="velodyne_mount_iyy" value="0.005"/>
+    <xacro:property name="velodyne_mount_iyz" value="0.000"/>
+    <xacro:property name="velodyne_mount_izz" value="0.002"/>
+
+    <xacro:property name="velodyne_mount_joint_x" value="0.259"/>
+    <xacro:property name="velodyne_mount_joint_y" value="-0.0625"/>
+    <xacro:property name="velodyne_mount_joint_z" value="0.296"/>
+    <xacro:property name="velodyne_mount_joint_pitch" value="0.415"/>
+
+    <xacro:property name="velodyne_joint_x" value="0.027"/>
+    <xacro:property name="velodyne_joint_y" value="0.0625"/>
+    <xacro:property name="velodyne_joint_z" value="0.0295"/>
+    <xacro:property name="velodyne_joint_pitch" value="0.262"/>
+    <xacro:property name="dummy_inertia" value="1e-09"/>
+    
+    <xacro:property name="dummy_inertia" value="1e-09"/>
+    
+</robot>

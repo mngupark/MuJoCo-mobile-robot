@@ -1,0 +1,34 @@
+<mujoco model="copernicus">
+    <compiler angle="radian" meshdir="meshes/" />
+    <option tolerance="1e-06" collision="predefined" cone="elliptic" jacobian="sparse" solver="CG" iterations="30" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="copernicus" file="copernicus.stl" scale="0.1 0.1 0.1" />
+        <mesh name="wheel" file="wheel.stl" scale="0.1 0.1 0.1" />
+        <mesh name="rplidar" file="rplidar.stl" />
+    </asset>
+    <worldbody>
+        <geom type="mesh" mesh="copernicus" />
+        <geom pos="0.109 0 0.365" type="mesh" mesh="rplidar" />
+        <body name="front_right_wheel" pos="0.2203 -0.2949 0.073">
+            <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+            <joint name="front_right_wheel_joint" pos="0 0 0" axis="0 1 0" />
+            <geom type="mesh" mesh="wheel" />
+        </body>
+        <body name="back_right_wheel" pos="-0.2203 -0.2949 0.073">
+            <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+            <joint name="back_right_wheel_joint" pos="0 0 0" axis="0 1 0" />
+            <geom type="mesh" mesh="wheel" />
+        </body>
+        <body name="front_left_wheel" pos="0.2203 0.2949 0.073">
+            <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+            <joint name="front_left_wheel_joint" pos="0 0 0" axis="0 1 0" />
+            <geom type="mesh" mesh="wheel" />
+        </body>
+        <body name="back_left_wheel" pos="-0.2203 0.2949 0.073">
+            <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+            <joint name="back_left_wheel_joint" pos="0 0 0" axis="0 1 0" />
+            <geom type="mesh" mesh="wheel" />
+        </body>
+    </worldbody>
+</mujoco>

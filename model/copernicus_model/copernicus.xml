@@ -1,0 +1,66 @@
+<mujoco model="copernicus">
+    <compiler angle="radian" meshdir="meshes/" />
+    <option tolerance="1e-06" collision="predefined" cone="elliptic" jacobian="sparse" solver="CG" iterations="30" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="copernicus" file="copernicus.stl" scale="0.1 0.1 0.1" />
+        <mesh name="wheel" file="wheel.stl" scale="0.1 0.1 0.1" />
+        <mesh name="rplidar" file="rplidar.stl" />
+    </asset>
+    <asset>
+        <texture type="skybox" builtin="gradient" width="128" height="128" rgb1=".4 .6 .8" rgb2="0 0 0"/> 
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="128" height="128" 
+            rgb1="0.6 0.6 0.6" rgb2="0.6 0.6 0.6" markrgb="1 1 1"/>  
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".4 .4 .4" rgb2=".6 .6 .6" 
+            width="512" height="512"/>  
+        <material name='MatPlane' reflectance='0.3' texture="texplane" texrepeat="1 1" texuniform="true"/>
+    </asset>
+
+     <visual>
+        <quality shadowsize="2048" offsamples="16"/>
+        <map znear="0.1" force="0.05"/>
+    </visual>
+
+    <statistic extent="4"/>
+
+    <worldbody>
+	<light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10"/>
+        <geom name="ground" pos="0 0 0" type="plane" size="10 10 .05" rgba=".7 .7 .7 1" material="MatPlane"/>
+
+	<body name="base_link" pos="0 0 0.15">
+            <freejoint name="root" />
+	    <inertial pos="0 0 0" quat="1 0 0 0" mass="5.674" fullinertia="3.28 3.69 2.26 0.0 0.0 0.0" />
+	    <camera name="camera" mode="fixed" fovy="45" ipd="0.068" pos="0.3 0 0.3" euler="0 -1.57 -1.57"/>
+            <geom name="copernicus_body" pos="0 0 0.15" type="mesh" rgba="0.5 0.5 0.5 1" mesh="copernicus" />
+            <geom name="rplidar_body" pos="0.109 0 0.515" rgba="0 0 0.8 1" type="mesh" mesh="rplidar" />
+            <body name="front_right_wheel" pos="0.2203 -0.2949 0.223">
+                <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+                <joint name="front_right_wheel_joint" pos="0 0 0" axis="0 1 0" />
+                <geom name="frw_body" type="mesh" rgba="0 0 0 1" mesh="wheel" />
+            </body>
+            <body name="back_right_wheel" pos="-0.2203 -0.2949 0.223">
+                <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+                <joint name="back_right_wheel_joint" pos="0 0 0" axis="0 1 0" />
+                <geom name="flw_body"  type="mesh" rgba="0 0 0 1" mesh="wheel" />
+            </body>
+            <body name="front_left_wheel" pos="0.2203 0.2949 0.223">
+                <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+                <joint name="front_left_wheel_joint" pos="0 0 0" axis="0 1 0" />
+                <geom name="brw_body"  type="mesh" rgba="0 0 0 1" mesh="wheel" />
+            </body>
+            <body name="back_left_wheel" pos="-0.2203 0.2949 0.223">
+                <inertial pos="0 0 0" quat="0.878258 0.144321 -0.216139 0.401396" mass="2.637" diaginertia="0.646667 0.646667 0.646667" />
+                <joint name="back_left_wheel_joint" pos="0 0 0" axis="0 1 0" />
+                <geom name="blw_body"  type="mesh" rgba="0 0 0 1" mesh="wheel" />
+            </body>
+	</body>
+    </worldbody>
+    <contact>
+    	<pair geom1 ="ground" geom2 ="copernicus_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+        <pair geom1 ="ground" geom2 ="rplidar_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+        <pair geom1 ="ground" geom2 ="frw_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+        <pair geom1 ="ground" geom2 ="flw_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+        <pair geom1 ="ground" geom2 ="brw_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+        <pair geom1 ="ground" geom2 ="blw_body" friction ="1 1 0.005 0.0001 0.0001" condim ="3" margin =" 0.0" />
+    </contact>
+</mujoco>
